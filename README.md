@@ -1,4 +1,4 @@
-# SmartSales AI
+# Fin E-Scale
 
 ## AI-Powered E-Commerce Sales Forecasting and Customer Analytics
 
