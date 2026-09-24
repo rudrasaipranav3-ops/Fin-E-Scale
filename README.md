@@ -2,7 +2,7 @@
 
 ## AI-Powered E-Commerce Sales Forecasting and Customer Analytics
 
-SmartSales AI is a full-stack e-commerce analytics and decision-support platform that combines transactional analytics, customer intelligence, machine learning, sales forecasting, explainability, and notification-driven business insights in a unified dashboard.
+Fin E-Scale is a full-stack e-commerce analytics and decision-support platform that combines transactional analytics, customer intelligence, machine learning, sales forecasting, explainability, and notification-driven business insights in a unified dashboard.
 
 The system is organized into three services:
 
@@ -45,7 +45,7 @@ The system is organized into three services:
 
 E-commerce applications generate large volumes of customer, product, order, and revenue data. Turning this data into useful business decisions requires more than conventional historical reporting.
 
-SmartSales AI provides an integrated platform for:
+Fin E-Scale provides an integrated platform for:
 
 - Sales performance analysis
 - Customer segmentation
@@ -221,7 +221,7 @@ Recommendations can support:
 
 # Architecture
 
-SmartSales AI uses a three-service architecture.
+Fin E-Scale uses a three-service architecture.
 
 ```text
                          SmartSales AI
@@ -327,7 +327,7 @@ three                0.185.1
 # Project Structure
 
 ```text
-SmartSales AI/
+Fin E-Scale/
 │
 ├── backend/
 │   ├── prisma/
@@ -431,7 +431,7 @@ The notification system is available through the dashboard header notification c
 
 # Sales Forecasting
 
-Sales forecasting is a core SmartSales AI capability.
+Sales forecasting is a core Fin E-Scale capability.
 
 The validated forecasting model/pipeline is identified as:
 
@@ -485,7 +485,7 @@ The V4.1 pipeline is considered frozen for the final project. No V4.2 model or a
 
 # Forecast Intelligence Pipeline
 
-SmartSales AI extends the forecast output into business-oriented intelligence.
+Fin E-Scale extends the forecast output into business-oriented intelligence.
 
 ```text
 Forecast
@@ -586,7 +586,7 @@ Protected notification operations also verify ownership before modifying records
 
 # Database
 
-SmartSales AI uses PostgreSQL as its relational database and Prisma as the ORM.
+Fin E-Scale uses PostgreSQL as its relational database and Prisma as the ORM.
 
 The backend is responsible for database access.
 
@@ -690,7 +690,7 @@ Place the project in a working directory.
 Example:
 
 ```text
-SmartSales AI/
+Fin E-Scale/
 ├── backend/
 ├── frontend/
 └── ml-service/
@@ -849,7 +849,7 @@ http://localhost:3000
 
 # Testing and Validation
 
-SmartSales AI has undergone functional, responsive, integration, and technical validation.
+Fin E-Scale has undergone functional, responsive, integration, and technical validation.
 
 ## TypeScript Validation
 
@@ -1151,7 +1151,7 @@ The current project should therefore be evaluated using sufficiently large and r
 
 ## Feature Complete and Technically Validated
 
-The current SmartSales AI implementation has completed:
+The current Fin E-Scale implementation has completed:
 
 ```text
 Authentication                  ✓
@@ -1182,7 +1182,7 @@ The V4.1 forecasting pipeline and current dashboard implementation are frozen fo
 ## Final Workflow
 
 ```text
-                    SmartSales AI
+                    Fin E-Scale
                          |
                          v
                  Historical Data
@@ -1219,4 +1219,4 @@ The V4.1 forecasting pipeline and current dashboard implementation are frozen fo
                     Action
 ```
 
-**SmartSales AI — From e-commerce data to intelligent business decisions.**
+**Fin E-Scale — From e-commerce data to intelligent business decisions.**
