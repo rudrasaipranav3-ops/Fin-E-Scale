@@ -1,0 +1,2 @@
+﻿customer_id,customer_name,customer_email,country,city,order_id,order_date,product_id,product_name,category,quantity,unit_price,discount,payment_method,channel
+NEW-CUST-001,New Test Customer,newtest@example.com,India,Hyderabad,NEW-ORDER-001,2026-08-29,NEW-PROD-001,Analytics Pro,Software,2,25000,0,UPI,Online

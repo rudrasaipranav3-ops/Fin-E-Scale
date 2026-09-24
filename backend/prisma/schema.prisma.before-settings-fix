@@ -1,0 +1,687 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/**
+ * =========================================================
+ * USER
+ * =========================================================
+ */
+
+model User {
+  id           String  @id @default(cuid())
+  name         String
+  email        String  @unique
+  passwordHash String
+  role         String  @default("user")
+  isVerified   Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  datasets  Dataset[]
+  customers Customer[]
+  products  Product[]
+  orders    Order[]
+
+  customerSegments CustomerSegment[]
+  churnPredictions ChurnPrediction[]
+  clvPredictions   CLVPrediction[]
+
+  recommendations      ProductRecommendation[]
+  marketBasketAnalyses MarketBasketAnalysis[]
+  marketBasketRules    MarketBasketRule[]
+  salesForecasts       SalesForecast[]
+  notifications        Notification[]
+  settings             UserSettings?
+  resetOtps PasswordResetOtp[]
+
+  @@map("users")
+}
+
+/**
+ * =========================================================
+ * PASSWORD RESET OTP
+ * =========================================================
+ */
+
+model PasswordResetOtp {
+  id String @id @default(cuid())
+
+  userId String
+
+  otpHash   String
+  expiresAt DateTime
+
+  attempts Int     @default(0)
+  verified Boolean @default(false)
+  used     Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("password_reset_otps")
+}
+
+/**
+ * =========================================================
+ * USER SETTINGS
+ * =========================================================
+ */
+
+model UserSettings {
+  id String @id @default(cuid())
+
+  userId String @unique
+
+  forecastAlerts       Boolean @default(true)
+  riskAlerts           Boolean @default(true)
+  recommendationAlerts Boolean @default(true)
+  emailNotifications   Boolean @default(true)
+
+  theme                  String @default("dark")
+  dashboardDensity       String @default("comfortable")
+  defaultForecastHorizon Int    @default(30)
+  defaultDateRange       String @default("30d")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}
+
+/**
+ * =========================================================
+ * DATASET
+ * =========================================================
+ */
+
+model Dataset {
+  id String @id @default(cuid())
+
+  name         String
+  originalName String?
+  description  String?
+  fileName     String?
+
+  rowCount Int @default(0)
+
+  status String @default("pending")
+
+  uploadedAt DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  customers Customer[]
+  products  Product[]
+  orders    Order[]
+
+  customerSegments CustomerSegment[]
+  churnPredictions ChurnPrediction[]
+  clvPredictions   CLVPrediction[]
+
+  recommendations ProductRecommendation[]
+
+  marketBasketAnalyses MarketBasketAnalysis[]
+
+  salesForecasts SalesForecast[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("datasets")
+}
+
+/**
+ * =========================================================
+ * CUSTOMER
+ * =========================================================
+ */
+
+model Customer {
+  id String @id @default(cuid())
+
+  externalId String
+
+  name  String?
+  email String?
+  phone String?
+
+  country String?
+  city    String?
+
+  age    Int?
+  gender String?
+
+  totalOrders Int @default(0)
+
+  totalSpent Float @default(0)
+
+  averageOrderValue Float @default(0)
+
+  lastPurchaseAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  orders Order[]
+
+  segments CustomerSegment[]
+
+  churnPredictions ChurnPrediction[]
+
+  clvPredictions CLVPrediction[]
+
+  recommendations ProductRecommendation[]
+
+  @@unique([userId, externalId])
+  @@index([userId])
+  @@index([datasetId])
+  @@index([country])
+  @@map("customers")
+}
+
+/**
+ * =========================================================
+ * PRODUCT
+ * =========================================================
+ */
+
+model Product {
+  id String @id @default(cuid())
+
+  externalId String
+
+  name String
+
+  category    String?
+  subCategory String?
+
+  description String?
+
+  price Float
+  cost  Float?
+
+  stock Int @default(0)
+
+  brand String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  orderItems OrderItem[]
+
+  recommendations ProductRecommendation[]
+
+  @@unique([userId, externalId])
+  @@index([userId])
+  @@index([datasetId])
+  @@index([category])
+  @@map("products")
+}
+
+/**
+ * =========================================================
+ * ORDER
+ * =========================================================
+ */
+
+model Order {
+  id String @id @default(cuid())
+
+  externalId String
+
+  orderDate DateTime
+
+  status String @default("completed")
+
+  totalAmount Float
+
+  discount     Float @default(0)
+  shippingCost Float @default(0)
+
+  paymentMethod String?
+  channel       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  customerId String
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  items OrderItem[]
+
+  @@unique([userId, externalId])
+  @@index([userId])
+  @@index([customerId])
+  @@index([datasetId])
+  @@index([orderDate])
+  @@index([status])
+  @@map("orders")
+}
+
+/**
+ * =========================================================
+ * ORDER ITEM
+ * =========================================================
+ */
+
+model OrderItem {
+  id String @id @default(cuid())
+
+  quantity Int
+
+  unitPrice Float
+
+  discount Float @default(0)
+
+  totalPrice Float
+
+  createdAt DateTime @default(now())
+
+  orderId String
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([orderId, productId])
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+/**
+ * =========================================================
+ * CUSTOMER SEGMENTATION
+ * =========================================================
+ */
+
+model CustomerSegment {
+  id String @id @default(cuid())
+
+  segmentName String
+
+  clusterNumber Int
+
+  description String?
+
+  score Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customerId String
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([customerId])
+  @@index([datasetId])
+  @@index([clusterNumber])
+  @@map("customer_segments")
+}
+
+/**
+ * =========================================================
+ * CHURN PREDICTION
+ * =========================================================
+ */
+
+model ChurnPrediction {
+  id String @id @default(cuid())
+
+  churnProbability Float
+
+  riskLevel String
+
+  predictedChurn Boolean
+
+  modelVersion String?
+
+  predictionDate DateTime @default(now())
+
+  customerId String
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([customerId])
+  @@index([datasetId])
+  @@index([riskLevel])
+  @@index([predictionDate])
+  @@map("churn_predictions")
+}
+
+/**
+ * =========================================================
+ * CUSTOMER LIFETIME VALUE
+ * =========================================================
+ */
+
+model CLVPrediction {
+  id String @id @default(cuid())
+
+  predictedValue Float
+
+  confidenceScore Float?
+
+  modelVersion String?
+
+  predictionDate DateTime @default(now())
+
+  customerId String
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([customerId])
+  @@index([datasetId])
+  @@index([predictionDate])
+  @@map("clv_predictions")
+}
+
+/**
+ * =========================================================
+ * PRODUCT RECOMMENDATION
+ * =========================================================
+ */
+
+model ProductRecommendation {
+  id String @id @default(cuid())
+
+  score Float
+
+  algorithm String @default("collaborative_filtering")
+
+  reason String?
+
+  generatedAt DateTime @default(now())
+
+  customerId String
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  productId String
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([customerId])
+  @@index([productId])
+  @@index([datasetId])
+  @@index([score])
+  @@map("product_recommendations")
+}
+
+/**
+ * =========================================================
+ * MARKET BASKET RULE
+ * =========================================================
+ */
+
+model MarketBasketRule {
+  id String @id @default(cuid())
+
+  antecedent Json
+
+  consequent Json
+
+  support Float
+
+  confidence Float
+
+  lift Float
+
+  analysisId String
+
+  analysis MarketBasketAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  userId String?
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([analysisId])
+  @@index([userId])
+  @@index([lift])
+  @@map("market_basket_rules")
+}
+
+/**
+ * =========================================================
+ * MARKET BASKET ANALYSIS
+ * =========================================================
+ */
+
+model MarketBasketAnalysis {
+  id String @id @default(cuid())
+
+  algorithm String
+
+  modelVersion String?
+
+  transactionCount Int
+
+  uniqueProductCount Int
+
+  frequentItemsetCount Int
+
+  associationRuleCount Int
+
+  averageConfidence Float
+
+  maximumLift Float
+
+  strongestRule Json?
+
+  frequentItemsets Json
+
+  generatedAt DateTime @default(now())
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  rules MarketBasketRule[]
+
+  @@index([userId])
+  @@index([datasetId])
+  @@index([generatedAt])
+  @@map("market_basket_analysis")
+}
+
+/**
+ * =========================================================
+ * SALES FORECAST
+ * =========================================================
+ */
+
+model SalesForecast {
+  id String @id @default(cuid())
+
+  forecastDate DateTime
+
+  predictedRevenue Float
+
+  expectedOrders Float?
+
+  predictedOrders Int?
+
+  predictedAOV Float?
+
+  lowerBound Float?
+
+  upperBound Float?
+
+  mae   Float?
+  rmse  Float?
+  mape  Float?
+  wape  Float?
+  smape Float?
+
+  evaluationDays Int?
+
+  algorithm String?
+
+  modelVersion String?
+
+  generatedAt DateTime @default(now())
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  datasetId String?
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([datasetId])
+  @@index([forecastDate])
+  @@map("sales_forecasts")
+}
+
+/**
+ * =========================================================
+ * NOTIFICATION
+ * =========================================================
+ */
+
+model Notification {
+  id String @id @default(cuid())
+
+  type     String
+  priority String @default("medium")
+
+  title   String
+  message String
+
+  read Boolean @default(false)
+
+  relatedDate   DateTime?
+  relatedMetric String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([read])
+  @@index([createdAt])
+  @@index([type])
+  @@index([priority])
+  @@map("notifications")
+}
+/**
+ * =========================================================
+ * USER SETTINGS
+ * =========================================================
+ *
+ * Stores per-user dashboard, notification, and preference
+ * configuration.
+ */
+model UserSettings {
+  id String @id @default(cuid())
+
+  userId String @unique
+
+  forecastAlerts        Boolean @default(true)
+  riskAlerts            Boolean @default(true)
+  recommendationAlerts Boolean @default(true)
+  emailNotifications    Boolean @default(true)
+
+  theme          String @default("dark")
+  dashboardDensity String @default("comfortable")
+
+  defaultForecastHorizon Int @default(30)
+  defaultDateRange       String @default("30d")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(
+    fields: [userId],
+    references: [id],
+    onDelete: Cascade
+  )
+
+  @@map("user_settings")
+}
