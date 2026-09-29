@@ -6,205 +6,126 @@ import fs from "fs";
    FILE / DIRECTORY CONFIGURATION
 ========================================================= */
 
-/*
- * Upload directory:
- *
- * /tmp/fin-e-scale-uploads
- *
- * Note: /tmp is ephemeral on most hosts (Render, Railway,
- * Vercel, Lambda). Files are lost on restart or redeploy,
- * so process each CSV during the request or soon after.
- */
-
-const uploadDirectory =
-  "/tmp/fin-e-scale-uploads";
+const uploadDirectory = "/tmp/fin-e-scale-uploads";
 
 /* =========================================================
    UPLOAD LIMITS
 ========================================================= */
 
-const MAX_FILE_SIZE =
-  20 * 1024 * 1024; // 20 MB
-
-/* =========================================================
-   ENSURE UPLOAD DIRECTORY EXISTS
-========================================================= */
-
-if (
-  !fs.existsSync(
-    uploadDirectory
-  )
-) {
-  fs.mkdirSync(
-    uploadDirectory,
-    {
-      recursive: true,
-    }
-  );
-}
+const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
 /* =========================================================
    SAFE FILE NAME
 ========================================================= */
 
-function createSafeFileName(
-  originalName
-) {
-  /*
-   * Extract filename only.
-   *
-   * This prevents directory components from
-   * becoming part of the stored filename.
-   */
+function createSafeFileName(originalName) {
+  const baseName = path.basename(originalName);
 
-  const baseName =
-    path.basename(
-      originalName
-    );
+  const extension = path.extname(baseName).toLowerCase();
 
-  /*
-   * Remove extension temporarily.
-   */
+  const nameWithoutExtension = path.basename(
+    baseName,
+    extension
+  );
 
-  const extension =
-    path
-      .extname(baseName)
-      .toLowerCase();
-
-  const nameWithoutExtension =
-    path.basename(
-      baseName,
-      extension
-    );
-
-  /*
-   * Sanitize filename.
-   */
-
-  let safeName =
-    nameWithoutExtension
-      .trim()
-      .replace(
-        /\s+/g,
-        "_"
-      )
-      .replace(
-        /[^a-zA-Z0-9_-]/g,
-        ""
-      )
-      .replace(
-        /_+/g,
-        "_"
-      )
-      .replace(
-        /^[_-]+|[_-]+$/g,
-        ""
-      );
-
-  /*
-   * Handle unusual filenames such as:
-   *
-   * @#$%.csv
-   */
+  let safeName = nameWithoutExtension
+    .trim()
+    .replace(/\s+/g, "_")
+    .replace(/[^a-zA-Z0-9_-]/g, "")
+    .replace(/_+/g, "_")
+    .replace(/^[_-]+|[_-]+$/g, "");
 
   if (!safeName) {
-    safeName =
-      "dataset";
+    safeName = "dataset";
   }
 
-  /*
-   * Limit filename length.
-   */
+  safeName = safeName.slice(0, 100);
 
-  safeName =
-    safeName.slice(
-      0,
-      100
-    );
+  const timestamp = Date.now();
 
-  /*
-   * Add timestamp + random suffix
-   * to prevent filename collisions.
-   */
+  const randomSuffix = Math.random()
+    .toString(36)
+    .slice(2, 10);
 
-  const timestamp =
-    Date.now();
-
-  const randomSuffix =
-    Math.random()
-      .toString(36)
-      .slice(2, 10);
-
-  return (
-    `${timestamp}-` +
-    `${randomSuffix}-` +
-    `${safeName}.csv`
-  );
+  return `${timestamp}-${randomSuffix}-${safeName}.csv`;
 }
 
 /* =========================================================
    MULTER STORAGE
 ========================================================= */
 
-const storage =
-  multer.diskStorage({
-    destination(
-      req,
-      file,
-      callback
-    ) {
-      callback(
-        null,
+const storage = multer.diskStorage({
+
+  destination(req, file, callback) {
+    try {
+      /*
+       * IMPORTANT:
+       * Create the directory only when the upload request
+       * actually arrives.
+       */
+
+      fs.mkdirSync(uploadDirectory, {
+        recursive: true,
+      });
+
+      console.log(
+        "CSV upload directory:",
         uploadDirectory
       );
-    },
 
-    filename(
-      req,
-      file,
-      callback
-    ) {
-      try {
-        const fileName =
-          createSafeFileName(
-            file.originalname
-          );
+      callback(null, uploadDirectory);
 
-        callback(
-          null,
-          fileName
+    } catch (error) {
+
+      console.error(
+        "Unable to create CSV upload directory:",
+        error
+      );
+
+      callback(error);
+    }
+  },
+
+  filename(req, file, callback) {
+    try {
+
+      const fileName =
+        createSafeFileName(
+          file.originalname
         );
-      } catch (error) {
-        callback(
-          error
-        );
-      }
-    },
-  });
+
+      console.log(
+        "CSV upload filename:",
+        fileName
+      );
+
+      callback(null, fileName);
+
+    } catch (error) {
+
+      console.error(
+        "Unable to generate CSV filename:",
+        error
+      );
+
+      callback(error);
+    }
+  },
+});
 
 /* =========================================================
    CSV FILE FILTER
 ========================================================= */
 
-function fileFilter(
-  req,
-  file,
-  callback
-) {
+function fileFilter(req, file, callback) {
+
   const extension =
     path
-      .extname(
-        file.originalname
-      )
+      .extname(file.originalname)
       .toLowerCase();
 
-  /* -------------------------------------------------------
-     EXTENSION CHECK
-  ------------------------------------------------------- */
+  if (extension !== ".csv") {
 
-  if (
-    extension !== ".csv"
-  ) {
     const error =
       new Error(
         "Only CSV files are allowed."
@@ -212,30 +133,15 @@ function fileFilter(
 
     error.statusCode = 400;
 
-    return callback(
-      error
-    );
+    return callback(error);
   }
-
-  /* -------------------------------------------------------
-     MIME TYPE CHECK
-  ------------------------------------------------------- */
-
-  /*
-   * Browsers and operating systems can report CSV
-   * files using different MIME types.
-   */
 
   const allowedMimeTypes =
     new Set([
       "text/csv",
-
       "application/csv",
-
       "text/plain",
-
       "application/vnd.ms-excel",
-
       "application/octet-stream",
     ]);
 
@@ -245,6 +151,7 @@ function fileFilter(
       file.mimetype
     )
   ) {
+
     const error =
       new Error(
         "Invalid CSV file type."
@@ -252,15 +159,10 @@ function fileFilter(
 
     error.statusCode = 400;
 
-    return callback(
-      error
-    );
+    return callback(error);
   }
 
-  return callback(
-    null,
-    true
-  );
+  return callback(null, true);
 }
 
 /* =========================================================
@@ -269,27 +171,16 @@ function fileFilter(
 
 const upload =
   multer({
+
     storage,
 
     fileFilter,
 
     limits: {
-      /*
-       * Maximum CSV dataset size:
-       *
-       * 20 MB
-       */
-
-      fileSize:
-        MAX_FILE_SIZE,
-
-      /*
-       * Only one uploaded file is expected
-       * by the dataset endpoint.
-       */
-
+      fileSize: MAX_FILE_SIZE,
       files: 1,
     },
+
   });
 
 /* =========================================================
