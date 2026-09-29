@@ -1,17 +1,9 @@
-﻿{
+{
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "services": {
     "frontend": {
       "root": "frontend/",
-      "framework": "nextjs",
-      "bindings": [
-        {
-          "type": "service",
-          "service": "backend",
-          "format": "url",
-          "env": "BACKEND_INTERNAL_URL"
-        }
-      ]
+      "framework": "nextjs"
     },
     "backend": {
       "root": "backend/",
@@ -28,7 +20,7 @@
     "ml": {
       "root": "ml-service/",
       "framework": "fastapi",
-      "entrypoint": "app/main.py"
+      "entrypoint": "app.main:app"
     }
   },
   "rewrites": [
