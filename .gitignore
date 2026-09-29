@@ -1,2 +1,18 @@
-.vercel
-.env*
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Next.js
+.next/
+**/.next/
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
