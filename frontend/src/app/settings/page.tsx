@@ -35,8 +35,10 @@ export default function SettingsPage() {
   const router = useRouter();
 
   const API_URL =
-    process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
-    "http://localhost:5001";
+  process.env.NODE_ENV === "production"
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
+      "http://localhost:5001";
 
   const [user, setUser] = useState<AuthUser | null>(null);
 

@@ -45,7 +45,10 @@ type ApiResponse = {
 ========================================================= */
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+  process.env.NODE_ENV === "production"
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
+      "http://localhost:5001";
 
 /* =========================================================
    AUTH PAGE
