@@ -18,22 +18,36 @@ import { verifyEmailTransporter } from "./lib/email.js";
 
 const app = express();
 
-const PORT =
-  Number(process.env.PORT) || 5001;
+/*
+ * Needed when the host (Render, Railway, etc.) terminates
+ * HTTPS in front of Express, so that "secure" cookies work.
+ */
 
-const NODE_ENV =
-  process.env.NODE_ENV || "development";
+app.set("trust proxy", 1);
+
+const PORT = Number(process.env.PORT) || 5001;
+
+const NODE_ENV = process.env.NODE_ENV || "development";
 
 /* =========================================================
    CORS CONFIGURATION
 ========================================================= */
+
+/*
+ * Origins never contain a trailing slash, so any trailing
+ * slashes in FRONTEND_URL are stripped before comparing.
+ */
 
 const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   "http://localhost:3001",
   "http://127.0.0.1:3001",
-].filter(Boolean);
+  "https://fin-e-scale.vercel.app",
+  process.env.FRONTEND_URL,
+]
+  .filter(Boolean)
+  .map((url) => url.replace(/\/+$/, ""));
 
 const corsOptions = {
   origin(origin, callback) {
@@ -48,31 +62,18 @@ const corsOptions = {
      */
 
     if (!origin) {
-      return callback(
-        null,
-        true
-      );
+      return callback(null, true);
     }
 
-    if (
-      allowedOrigins.includes(
-        origin
-      )
-    ) {
-      return callback(
-        null,
-        true
-      );
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
     }
 
-    console.error(
-      `CORS blocked request from origin: ${origin}`
+    console.error(`CORS blocked request from origin: ${origin}`);
+
+    const error = new Error(
+      `CORS policy does not allow origin: ${origin}`
     );
-
-    const error =
-      new Error(
-        `CORS policy does not allow origin: ${origin}`
-      );
 
     error.statusCode = 403;
 
@@ -86,28 +87,16 @@ const corsOptions = {
 
   credentials: true,
 
-  methods: [
-    "GET",
-    "POST",
-    "PUT",
-    "PATCH",
-    "DELETE",
-    "OPTIONS",
-  ],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-  ],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 /* =========================================================
    GLOBAL MIDDLEWARE
 ========================================================= */
 
-app.use(
-  cors(corsOptions)
-);
+app.use(cors(corsOptions));
 
 /*
  * Parse JSON requests.
@@ -135,9 +124,7 @@ app.use(
  * req.cookies.auth_token
  */
 
-app.use(
-  cookieParser()
-);
+app.use(cookieParser());
 
 /* =========================================================
    HEALTH CHECK
@@ -147,66 +134,51 @@ app.use(
    This performs a real PostgreSQL connectivity check.
 ========================================================= */
 
-app.get(
-  "/api/health",
-  async (req, res) => {
-    try {
-      /*
-       * Lightweight PostgreSQL query.
-       */
+app.get("/api/health", async (req, res) => {
+  try {
+    /*
+     * Lightweight PostgreSQL query.
+     */
 
-      await prisma.$queryRaw`SELECT 1`;
+    await prisma.$queryRaw`SELECT 1`;
 
-      return res.status(200).json({
-        success: true,
+    return res.status(200).json({
+      success: true,
 
-        status: "OK",
+      status: "OK",
 
-        server: "online",
+      server: "online",
 
-        database:
-          "PostgreSQL",
+      database: "PostgreSQL",
 
-        databaseStatus:
-          "connected",
+      databaseStatus: "connected",
 
-        environment:
-          NODE_ENV,
+      environment: NODE_ENV,
 
-        timestamp:
-          new Date().toISOString(),
-      });
-    } catch (error) {
-      console.error(
-        "Health check database error:",
-        error
-      );
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error("Health check database error:", error);
 
-      return res.status(503).json({
-        success: false,
+    return res.status(503).json({
+      success: false,
 
-        status: "ERROR",
+      status: "ERROR",
 
-        server: "online",
+      server: "online",
 
-        database:
-          "PostgreSQL",
+      database: "PostgreSQL",
 
-        databaseStatus:
-          "disconnected",
+      databaseStatus: "disconnected",
 
-        environment:
-          NODE_ENV,
+      environment: NODE_ENV,
 
-        timestamp:
-          new Date().toISOString(),
+      timestamp: new Date().toISOString(),
 
-        message:
-          "Database connection unavailable.",
-      });
-    }
+      message: "Database connection unavailable.",
+    });
   }
-);
+});
 
 /* =========================================================
    AUTHENTICATION ROUTES
@@ -225,10 +197,7 @@ app.get(
  * POST /api/auth/logout
  */
 
-app.use(
-  "/api/auth",
-  authRoutes
-);
+app.use("/api/auth", authRoutes);
 
 /* =========================================================
    DATASET ROUTES
@@ -245,10 +214,7 @@ app.use(
  * /api/datasets/upload
  */
 
-app.use(
-  "/api/datasets",
-  datasetRoutes
-);
+app.use("/api/datasets", datasetRoutes);
 
 /* =========================================================
    DASHBOARD ROUTES
@@ -283,113 +249,81 @@ app.use(
  * /api/dashboard/activity
  */
 
-app.use(
-  "/api/dashboard",
-  dashboardRoutes
-);
-app.use(
-  "/api/analytics",
-  analyticsRoutes
- )
-app.use(
-  "/api/notifications",
-  notificationRoutes
-);
-app.use(
-  "/api/settings",
-  settingsRoutes
-);
+app.use("/api/dashboard", dashboardRoutes);
+
+app.use("/api/analytics", analyticsRoutes);
+
+app.use("/api/notifications", notificationRoutes);
+
+app.use("/api/settings", settingsRoutes);
+
 /* =========================================================
    API ROOT
 
    GET /api
 ========================================================= */
 
-app.get(
-  "/api",
-  (req, res) => {
-    return res.status(200).json({
-      success: true,
+app.get("/api", (req, res) => {
+  return res.status(200).json({
+    success: true,
 
-      name:
-        "E-Commerce Customer Analytics API",
+    name: "E-Commerce Customer Analytics API",
 
-      version:
-        "1.0.0",
+    version: "1.0.0",
 
-      environment:
-        NODE_ENV,
+    environment: NODE_ENV,
 
-      endpoints: {
-        health:
-          "/api/health",
+    endpoints: {
+      health: "/api/health",
 
-        authentication: {
-          register:
-            "POST /api/auth/register",
+      authentication: {
+        register: "POST /api/auth/register",
 
-          login:
-            "POST /api/auth/login",
+        login: "POST /api/auth/login",
 
-          currentUser:
-            "GET /api/auth/me",
+        currentUser: "GET /api/auth/me",
 
-          logout:
-            "POST /api/auth/logout",
-        },
-
-        datasets: {
-          list:
-            "GET /api/datasets",
-
-          upload:
-            "POST /api/datasets/upload",
-        },
-
-        dashboard: {
-          summary:
-            "GET /api/dashboard/summary",
-
-          revenue:
-            "GET /api/dashboard/revenue",
-
-          products:
-            "GET /api/dashboard/products",
-
-          orders:
-            "GET /api/dashboard/orders",
-
-          customerDistribution:
-            "GET /api/dashboard/customer-distribution",
-
-          activity:
-            "GET /api/dashboard/activity",
-        },
+        logout: "POST /api/auth/logout",
       },
-    });
-  }
-);
+
+      datasets: {
+        list: "GET /api/datasets",
+
+        upload: "POST /api/datasets/upload",
+      },
+
+      dashboard: {
+        summary: "GET /api/dashboard/summary",
+
+        revenue: "GET /api/dashboard/revenue",
+
+        products: "GET /api/dashboard/products",
+
+        orders: "GET /api/dashboard/orders",
+
+        customerDistribution: "GET /api/dashboard/customer-distribution",
+
+        activity: "GET /api/dashboard/activity",
+      },
+    },
+  });
+});
 
 /* =========================================================
    404 HANDLER
 ========================================================= */
 
-app.use(
-  (req, res) => {
-    return res.status(404).json({
-      success: false,
+app.use((req, res) => {
+  return res.status(404).json({
+    success: false,
 
-      message:
-        "API route not found.",
+    message: "API route not found.",
 
-      method:
-        req.method,
+    method: req.method,
 
-      path:
-        req.originalUrl,
-    });
-  }
-);
+    path: req.originalUrl,
+  });
+});
 
 /* =========================================================
    GLOBAL ERROR HANDLER
@@ -398,210 +332,132 @@ app.use(
    error-handling middleware.
 ========================================================= */
 
-app.use(
-  (
-    error,
-    req,
-    res,
-    next
-  ) => {
-    console.error(
-      "Unhandled server error:",
-      error
-    );
+app.use((error, req, res, next) => {
+  console.error("Unhandled server error:", error);
 
-    /* =====================================================
-       CORS ERROR
-    ===================================================== */
+  /* =====================================================
+     CORS ERROR
+  ===================================================== */
 
-    if (
-      error.statusCode === 403 ||
-      error.message?.includes(
-        "CORS policy"
-      )
-    ) {
-      return res.status(403).json({
-        success: false,
-
-        message:
-          error.message ||
-          "Request blocked by CORS policy.",
-      });
-    }
-
-    /* =====================================================
-       MULTER FILE SIZE ERROR
-    ===================================================== */
-
-    if (
-      error.code ===
-      "LIMIT_FILE_SIZE"
-    ) {
-      return res.status(413).json({
-        success: false,
-
-        message:
-          "Uploaded file exceeds the allowed size limit.",
-      });
-    }
-
-    /* =====================================================
-       MULTER UNEXPECTED FILE
-    ===================================================== */
-
-    if (
-      error.code ===
-      "LIMIT_UNEXPECTED_FILE"
-    ) {
-      return res.status(400).json({
-        success: false,
-
-        message:
-          "Unexpected upload field. Use 'file' for CSV uploads.",
-      });
-    }
-
-    /* =====================================================
-       INVALID JSON
-    ===================================================== */
-
-    if (
-      error instanceof SyntaxError &&
-      error.status === 400 &&
-      "body" in error
-    ) {
-      return res.status(400).json({
-        success: false,
-
-        message:
-          "Invalid JSON request body.",
-      });
-    }
-
-    /* =====================================================
-       DEFAULT ERROR
-    ===================================================== */
-
-    return res.status(
-      error.statusCode || 500
-    ).json({
+  if (
+    error.statusCode === 403 ||
+    error.message?.includes("CORS policy")
+  ) {
+    return res.status(403).json({
       success: false,
 
-      message:
-        NODE_ENV ===
-        "production"
-          ? "Internal server error."
-          : error.message ||
-            "Internal server error.",
+      message: error.message || "Request blocked by CORS policy.",
     });
   }
-);
+
+  /* =====================================================
+     MULTER FILE SIZE ERROR
+  ===================================================== */
+
+  if (error.code === "LIMIT_FILE_SIZE") {
+    return res.status(413).json({
+      success: false,
+
+      message: "Uploaded file exceeds the allowed size limit.",
+    });
+  }
+
+  /* =====================================================
+     MULTER UNEXPECTED FILE
+  ===================================================== */
+
+  if (error.code === "LIMIT_UNEXPECTED_FILE") {
+    return res.status(400).json({
+      success: false,
+
+      message: "Unexpected upload field. Use 'file' for CSV uploads.",
+    });
+  }
+
+  /* =====================================================
+     INVALID JSON
+  ===================================================== */
+
+  if (
+    error instanceof SyntaxError &&
+    error.status === 400 &&
+    "body" in error
+  ) {
+    return res.status(400).json({
+      success: false,
+
+      message: "Invalid JSON request body.",
+    });
+  }
+
+  /* =====================================================
+     DEFAULT ERROR
+  ===================================================== */
+
+  return res.status(error.statusCode || 500).json({
+    success: false,
+
+    message:
+      NODE_ENV === "production"
+        ? "Internal server error."
+        : error.message || "Internal server error.",
+  });
+});
 
 /* =========================================================
    START SERVER
 ========================================================= */
 
-const server =
-  app.listen(
-    PORT,
-    () => {
-      console.log(
-        "=========================================="
-      );
+const server = app.listen(PORT, () => {
+  console.log("==========================================");
 
-      console.log(
-        "E-Commerce Analytics Backend"
-      );
+  console.log("E-Commerce Analytics Backend");
 
-      console.log(
-        "=========================================="
-      );
+  console.log("==========================================");
 
-      console.log(
-        `Server: http://localhost:${PORT}`
-      );
+  console.log(`Server: http://localhost:${PORT}`);
 
-      console.log(
-        `API: http://localhost:${PORT}/api`
-      );
+  console.log(`API: http://localhost:${PORT}/api`);
 
-      console.log(
-        `Health: http://localhost:${PORT}/api/health`
-      );
+  console.log(`Health: http://localhost:${PORT}/api/health`);
 
-      console.log(
-        `Auth: http://localhost:${PORT}/api/auth`
-      );
+  console.log(`Auth: http://localhost:${PORT}/api/auth`);
 
-      console.log(
-        `Datasets: http://localhost:${PORT}/api/datasets`
-      );
+  console.log(`Datasets: http://localhost:${PORT}/api/datasets`);
 
-      console.log(
-        `Dashboard: http://localhost:${PORT}/api/dashboard`
-      );
+  console.log(`Dashboard: http://localhost:${PORT}/api/dashboard`);
 
-      console.log(
-        `Environment: ${NODE_ENV}`
-      );
+  console.log(`Environment: ${NODE_ENV}`);
 
-      console.log(
-        "=========================================="
-      );
+  console.log("==========================================");
 
-      verifyEmailTransporter();
-    }
-  );
+  verifyEmailTransporter();
+});
 
 /* =========================================================
    GRACEFUL SHUTDOWN
 ========================================================= */
 
-async function shutdown(
-  signal
-) {
-  console.log(
-    `\n${signal} received. Shutting down...`
-  );
+async function shutdown(signal) {
+  console.log(`\n${signal} received. Shutting down...`);
 
-  server.close(
-    async () => {
-      try {
-        await prisma.$disconnect();
+  server.close(async () => {
+    try {
+      await prisma.$disconnect();
 
-        console.log(
-          "PostgreSQL connection closed."
-        );
+      console.log("PostgreSQL connection closed.");
 
-        console.log(
-          "Server stopped successfully."
-        );
+      console.log("Server stopped successfully.");
 
-        process.exit(0);
-      } catch (error) {
-        console.error(
-          "Shutdown error:",
-          error
-        );
+      process.exit(0);
+    } catch (error) {
+      console.error("Shutdown error:", error);
 
-        process.exit(1);
-      }
+      process.exit(1);
     }
-  );
+  });
 }
 
-process.on(
-  "SIGINT",
-  () =>
-    shutdown(
-      "SIGINT"
-    )
-);
+process.on("SIGINT", () => shutdown("SIGINT"));
 
-process.on(
-  "SIGTERM",
-  () =>
-    shutdown(
-      "SIGTERM"
-    )
-);
+process.on("SIGTERM", () => shutdown("SIGTERM"));
