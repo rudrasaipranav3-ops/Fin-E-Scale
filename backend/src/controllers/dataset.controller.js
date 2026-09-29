@@ -48,26 +48,6 @@ function toNumber(value) {
 }
 
 /**
- * Remove a temporary uploaded file.
- */
-function removeFile(filePath) {
-  if (!filePath) {
-    return;
-  }
-
-  try {
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-  } catch (error) {
-    console.error(
-      "Unable to remove uploaded file:",
-      error
-    );
-  }
-}
-
-/**
  * Normalize a CSV column name.
  *
  * Example:
@@ -167,8 +147,6 @@ export async function uploadDataset(req, res) {
     ===================================================== */
 
     if (!userId) {
-      removeFile(req.file?.path);
-
       return res.status(401).json({
         success: false,
         authenticated: false,
@@ -205,8 +183,6 @@ export async function uploadDataset(req, res) {
       await parseCSV(req.file.path);
 
     if (!rows.length) {
-      removeFile(req.file.path);
-
       return res.status(400).json({
         success: false,
         message:
@@ -235,8 +211,6 @@ export async function uploadDataset(req, res) {
       );
 
     if (missingColumns.length > 0) {
-      removeFile(req.file.path);
-
       return res.status(400).json({
         success: false,
 
@@ -726,8 +700,6 @@ export async function uploadDataset(req, res) {
         },
       });
 
-      removeFile(req.file.path);
-
       return res.status(400).json({
         success: false,
 
@@ -880,14 +852,6 @@ export async function uploadDataset(req, res) {
       });
 
     /* =====================================================
-       REMOVE TEMPORARY FILE
-    ===================================================== */
-
-    removeFile(
-      req.file.path
-    );
-
-    /* =====================================================
        RESPONSE
     ===================================================== */
 
@@ -929,18 +893,8 @@ export async function uploadDataset(req, res) {
       },
     });
   } catch (error) {
-    console.error(
-      "Dataset upload error:",
-      error
-    );
-
-    /* =====================================================
-       TEMP FILE CLEANUP
-    ===================================================== */
-
-    removeFile(
-      req.file?.path
-    );
+    console.error("DATASET UPLOAD ERROR:", error);
+    console.error("STACK:", error?.stack);
 
     /* =====================================================
        MARK DATASET AS FAILED
@@ -983,10 +937,20 @@ export async function uploadDataset(req, res) {
 
     return res.status(500).json({
       success: false,
-
-      message:
-        "Unable to import dataset.",
+      message: error?.message || "Dataset upload failed",
     });
+  } finally {
+    /* =====================================================
+       TEMP FILE CLEANUP (success, early return, or error)
+    ===================================================== */
+
+    if (req.file?.path) {
+      try {
+        await fs.promises.unlink(req.file.path);
+      } catch (cleanupError) {
+        console.error("CSV cleanup failed:", cleanupError);
+      }
+    }
   }
 }
 
@@ -1000,19 +964,9 @@ export async function uploadDataset(req, res) {
 
 export async function validateDataset(req, res) {
   try {
-    const userId =
-      req.user?.userId ||
-      req.user?.id;
+    const userId = getUserId(req);
 
     if (!userId) {
-      if (req.file?.path) {
-        try {
-          fs.unlinkSync(req.file.path);
-        } catch {
-          // Ignore cleanup failure.
-        }
-      }
-
       return res.status(401).json({
         success: false,
         authenticated: false,
@@ -1034,12 +988,21 @@ export async function validateDataset(req, res) {
       });
     }
 
+    console.log("========== CSV VALIDATION DEBUG ==========");
+console.log("File:", req.file);
+console.log("Path:", req.file?.path);
+console.log("Exists:", req.file?.path
+  ? fs.existsSync(req.file.path)
+  : false);
+console.log("Size:", req.file?.size);
+console.log("Mimetype:", req.file?.mimetype);
+console.log("==========================================");
     const quality =
       await analyzeDatasetQuality(
         req.file.path
       );
 
-    const response = {
+    return res.status(200).json({
       success: true,
 
       message:
@@ -1054,40 +1017,25 @@ export async function validateDataset(req, res) {
       },
 
       quality,
-    };
-
-    try {
-      fs.unlinkSync(req.file.path);
-    } catch (cleanupError) {
-      console.error(
-        "Unable to remove validation file:",
-        cleanupError
-      );
-    }
-
-    return res.status(200).json(response);
+    });
   } catch (error) {
-    console.error(
-      "Dataset validation error:",
-      error
-    );
-
-    if (req.file?.path) {
-      try {
-        fs.unlinkSync(req.file.path);
-      } catch {
-        // Ignore cleanup failure.
-      }
-    }
+    console.error("DATASET VALIDATION ERROR:", error);
+    console.error("STACK:", error?.stack);
 
     return res.status(
       error?.statusCode || 500
     ).json({
       success: false,
-      message:
-        error?.message ||
-        "Unable to validate dataset.",
+      message: error?.message || "Dataset validation failed",
     });
+  } finally {
+    if (req.file?.path) {
+      try {
+        await fs.promises.unlink(req.file.path);
+      } catch (cleanupError) {
+        console.error("CSV cleanup failed:", cleanupError);
+      }
+    }
   }
 }
 

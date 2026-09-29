@@ -1,0 +1,7 @@
+order_id,customer_id,order_date,product_id,product_name,category,quantity,unit_price,discount_percent,total_amount,order_status,payment_method,city,state,customer_type
+ORD-B001,CUST-0001,2026-09-01,P001,Wireless Earbuds,Electronics,2,2499,10,4498.0,Completed,UPI,Hyderabad,Telangana,Repeat
+ORD-B002,CUST-0002,,P002,Smart Watch,Electronics,1,5499,5,5224.05,Completed,UPI,Bengaluru,Karnataka,New
+ORD-B003,CUST-0003,not-a-date,P003,Laptop Backpack,Accessories,1,1799,0,1799.0,Completed,COD,Chennai,Tamil Nadu,New
+ORD-B004,CUST-0004,2026-09-03,P004,Mechanical Keyboard,Electronics,-2,4299,0,-8598.0,Completed,Card,Mumbai,Maharashtra,Repeat
+ORD-B005,,2026-09-04,P005,Bluetooth Speaker,Electronics,1,3299,10,2969.1,Completed,UPI,Pune,Maharashtra,New
+ORD-B006,CUST-0006,2026-09-05,P006,Office Chair,Home & Office,1,8999,150,-449.95,Completed,UPI,Delhi,Delhi,New

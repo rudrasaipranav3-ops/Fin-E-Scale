@@ -1,0 +1,251 @@
+order_id,customer_id,order_date,product_id,product_name,category,quantity,unit_price,total_amount,order_status
+ORD-00001,CUST-0163,2025-11-01,P008,USB-C Hub,Accessories,4,2199,11326.87,Completed
+ORD-00002,CUST-0117,2026-07-01,P009,Running Shoes,Fashion,4,3999,13008.79,Completed
+ORD-00003,CUST-0118,2026-05-20,P001,Wireless Earbuds,Electronics,1,2499,2334.18,Returned
+ORD-00004,CUST-0044,2026-03-05,P007,Desk Lamp,Home & Office,1,1599,1605.16,Processing
+ORD-00005,CUST-0143,2026-03-03,P001,Wireless Earbuds,Electronics,1,2499,2604.14,Completed
+ORD-00006,CUST-0134,2026-07-31,P012,Water Bottle,Home & Kitchen,1,999,1166.01,Shipped
+ORD-00007,CUST-0145,2025-10-31,P004,Mechanical Keyboard,Electronics,1,4299,5215.95,Completed
+ORD-00008,CUST-0095,2026-06-04,P006,Office Chair,Home & Office,1,8999,9200.49,Completed
+ORD-00009,CUST-0154,2025-12-11,P011,Coffee Maker,Home & Kitchen,1,6499,8360.82,Returned
+ORD-00010,CUST-0097,2025-11-03,P003,Laptop Backpack,Accessories,4,1799,7425.94,Completed
+ORD-00011,CUST-0104,2026-04-05,P006,Office Chair,Home & Office,1,8999,9732.31,Completed
+ORD-00012,CUST-0159,2026-09-11,P006,Office Chair,Home & Office,3,8999,34447.91,Completed
+ORD-00013,CUST-0076,2026-06-18,P009,Running Shoes,Fashion,3,3999,13308.11,Completed
+ORD-00014,CUST-0154,2026-06-27,P004,Mechanical Keyboard,Electronics,1,4299,4578.1,Completed
+ORD-00015,CUST-0059,2026-07-06,P010,Hoodie,Fashion,1,2299,1911.48,Completed
+ORD-00016,CUST-0085,2026-03-31,P003,Laptop Backpack,Accessories,1,1799,1796.04,Completed
+ORD-00017,CUST-0102,2025-11-15,P015,Phone Stand,Accessories,1,799,1044.73,Completed
+ORD-00018,CUST-0143,2026-07-25,P005,Bluetooth Speaker,Electronics,1,3299,3473.53,Completed
+ORD-00019,CUST-0010,2026-03-09,P008,USB-C Hub,Accessories,1,2199,1894.55,Shipped
+ORD-00020,CUST-0050,2026-03-27,P008,USB-C Hub,Accessories,1,2199,2183.99,Completed
+ORD-00021,CUST-0060,2026-02-09,P014,Webcam,Electronics,1,2999,2514.65,Processing
+ORD-00022,CUST-0156,2025-12-04,P011,Coffee Maker,Home & Kitchen,1,6499,9521.09,Completed
+ORD-00023,CUST-0028,2026-08-25,P003,Laptop Backpack,Accessories,1,1799,2121.5,Completed
+ORD-00024,CUST-0051,2026-07-04,P013,Power Bank,Electronics,1,1899,2170.56,Completed
+ORD-00025,CUST-0112,2026-05-16,P015,Phone Stand,Accessories,4,799,4160.15,Completed
+ORD-00026,CUST-0054,2026-02-20,P004,Mechanical Keyboard,Electronics,1,4299,3789.49,Completed
+ORD-00027,CUST-0075,2026-07-19,P010,Hoodie,Fashion,1,2299,2326.48,Shipped
+ORD-00028,CUST-0140,2026-04-12,P003,Laptop Backpack,Accessories,1,1799,2108.52,Completed
+ORD-00029,CUST-0125,2026-03-06,P009,Running Shoes,Fashion,1,3999,4006.22,Completed
+ORD-00030,CUST-0130,2026-03-09,P001,Wireless Earbuds,Electronics,1,2499,2309.07,Completed
+ORD-00031,CUST-0108,2025-12-20,P013,Power Bank,Electronics,1,1899,2614.6,Completed
+ORD-00032,CUST-0138,2025-11-02,P009,Running Shoes,Fashion,4,3999,20153.59,Completed
+ORD-00033,CUST-0137,2026-04-15,P007,Desk Lamp,Home & Office,1,1599,1405.46,Completed
+ORD-00034,CUST-0048,2026-08-11,P003,Laptop Backpack,Accessories,2,1799,3302.54,Completed
+ORD-00035,CUST-0036,2025-10-23,P010,Hoodie,Fashion,1,2299,2452.93,Completed
+ORD-00036,CUST-0141,2026-07-31,P014,Webcam,Electronics,2,2999,6319.19,Completed
+ORD-00037,CUST-0156,2026-07-20,P015,Phone Stand,Accessories,1,799,660.32,Completed
+ORD-00038,CUST-0070,2026-01-06,P007,Desk Lamp,Home & Office,3,1599,4014.2,Completed
+ORD-00039,CUST-0109,2026-05-12,P005,Bluetooth Speaker,Electronics,1,3299,3754.31,Completed
+ORD-00040,CUST-0106,2025-11-28,P014,Webcam,Electronics,1,2999,3842.12,Completed
+ORD-00041,CUST-0051,2026-06-26,P001,Wireless Earbuds,Electronics,3,2499,8152.73,Completed
+ORD-00042,CUST-0057,2026-06-05,P012,Water Bottle,Home & Kitchen,3,999,3235.88,Cancelled
+ORD-00043,CUST-0158,2026-02-03,P015,Phone Stand,Accessories,1,799,796.09,Completed
+ORD-00044,CUST-0015,2025-10-25,P004,Mechanical Keyboard,Electronics,2,4299,10418.06,Completed
+ORD-00045,CUST-0029,2026-09-09,P002,Smart Watch,Electronics,2,5499,16128.74,Completed
+ORD-00046,CUST-0070,2026-03-07,P004,Mechanical Keyboard,Electronics,1,4299,4761.19,Completed
+ORD-00047,CUST-0153,2026-08-13,P009,Running Shoes,Fashion,1,3999,4079.78,Completed
+ORD-00048,CUST-0014,2026-05-28,P014,Webcam,Electronics,1,2999,3053.27,Completed
+ORD-00049,CUST-0140,2026-07-03,P006,Office Chair,Home & Office,3,8999,30550.07,Completed
+ORD-00050,CUST-0030,2026-06-27,P004,Mechanical Keyboard,Electronics,1,4299,4622.47,Completed
+ORD-00051,CUST-0006,2025-12-08,P008,USB-C Hub,Accessories,1,2199,2302.61,Completed
+ORD-00052,CUST-0150,2026-02-06,P014,Webcam,Electronics,1,2999,3030.87,Completed
+ORD-00053,CUST-0062,2026-03-15,P013,Power Bank,Electronics,3,1899,6263.84,Completed
+ORD-00054,CUST-0159,2026-03-26,P001,Wireless Earbuds,Electronics,1,2499,2681.47,Completed
+ORD-00055,CUST-0083,2025-10-16,P007,Desk Lamp,Home & Office,1,1599,1655.07,Completed
+ORD-00056,CUST-0101,2026-04-12,P003,Laptop Backpack,Accessories,2,1799,4140.29,Shipped
+ORD-00057,CUST-0123,2025-11-24,P007,Desk Lamp,Home & Office,1,1599,1885.76,Completed
+ORD-00058,CUST-0161,2026-06-21,P009,Running Shoes,Fashion,1,3999,4181.31,Completed
+ORD-00059,CUST-0130,2026-05-30,P007,Desk Lamp,Home & Office,1,1599,2119.68,Completed
+ORD-00060,CUST-0160,2026-08-23,P005,Bluetooth Speaker,Electronics,2,3299,6843.32,Completed
+ORD-00061,CUST-0036,2026-06-21,P012,Water Bottle,Home & Kitchen,1,999,1238.9,Completed
+ORD-00062,CUST-0139,2026-02-07,P015,Phone Stand,Accessories,1,799,747.02,Returned
+ORD-00063,CUST-0110,2026-09-08,P009,Running Shoes,Fashion,1,3999,4535.8,Completed
+ORD-00064,CUST-0060,2026-02-23,P005,Bluetooth Speaker,Electronics,1,3299,2491.68,Completed
+ORD-00065,CUST-0099,2026-01-24,P005,Bluetooth Speaker,Electronics,4,3299,14159.12,Completed
+ORD-00066,CUST-0126,2026-08-17,P004,Mechanical Keyboard,Electronics,1,4299,4835.24,Completed
+ORD-00067,CUST-0117,2026-02-09,P005,Bluetooth Speaker,Electronics,1,3299,2769.93,Completed
+ORD-00068,CUST-0126,2025-10-28,P012,Water Bottle,Home & Kitchen,1,999,799.46,Completed
+ORD-00069,CUST-0021,2026-03-16,P014,Webcam,Electronics,4,2999,10406.09,Completed
+ORD-00070,CUST-0041,2026-07-09,P010,Hoodie,Fashion,2,2299,4928.82,Completed
+ORD-00071,CUST-0021,2025-12-07,P012,Water Bottle,Home & Kitchen,4,999,4601.04,Completed
+ORD-00072,CUST-0058,2026-03-13,P005,Bluetooth Speaker,Electronics,1,3299,3710.22,Completed
+ORD-00073,CUST-0084,2025-11-15,P014,Webcam,Electronics,1,2999,4203.92,Completed
+ORD-00074,CUST-0049,2026-06-01,P003,Laptop Backpack,Accessories,1,1799,1929.68,Completed
+ORD-00075,CUST-0159,2026-03-18,P002,Smart Watch,Electronics,2,5499,11627.88,Completed
+ORD-00076,CUST-0012,2026-01-25,P013,Power Bank,Electronics,1,1899,1549.59,Completed
+ORD-00077,CUST-0149,2025-12-20,P005,Bluetooth Speaker,Electronics,1,3299,4446.51,Completed
+ORD-00078,CUST-0117,2026-04-18,P012,Water Bottle,Home & Kitchen,1,999,1130.45,Completed
+ORD-00079,CUST-0022,2026-05-26,P013,Power Bank,Electronics,1,1899,1898.3,Shipped
+ORD-00080,CUST-0082,2026-08-29,P003,Laptop Backpack,Accessories,1,1799,2471.13,Completed
+ORD-00081,CUST-0040,2026-03-04,P006,Office Chair,Home & Office,1,8999,9402.71,Completed
+ORD-00082,CUST-0047,2025-11-26,P012,Water Bottle,Home & Kitchen,1,999,1079.41,Completed
+ORD-00083,CUST-0149,2026-07-22,P010,Hoodie,Fashion,1,2299,2292.2,Shipped
+ORD-00084,CUST-0152,2026-05-11,P014,Webcam,Electronics,1,2999,2201.33,Completed
+ORD-00085,CUST-0085,2026-06-05,P005,Bluetooth Speaker,Electronics,1,3299,3709.85,Completed
+ORD-00086,CUST-0118,2025-11-04,P013,Power Bank,Electronics,1,1899,2164.11,Completed
+ORD-00087,CUST-0058,2026-01-19,P013,Power Bank,Electronics,3,1899,4657.09,Completed
+ORD-00088,CUST-0036,2026-06-29,P013,Power Bank,Electronics,2,1899,4070.5,Completed
+ORD-00089,CUST-0136,2026-07-22,P008,USB-C Hub,Accessories,1,2199,1843.48,Returned
+ORD-00090,CUST-0053,2026-03-04,P015,Phone Stand,Accessories,1,799,668.01,Completed
+ORD-00091,CUST-0069,2026-07-12,P012,Water Bottle,Home & Kitchen,1,999,1091.62,Completed
+ORD-00092,CUST-0145,2026-07-25,P014,Webcam,Electronics,1,2999,3587.53,Completed
+ORD-00093,CUST-0071,2026-02-15,P006,Office Chair,Home & Office,1,8999,7951.95,Completed
+ORD-00094,CUST-0156,2026-08-14,P004,Mechanical Keyboard,Electronics,2,4299,11616.38,Processing
+ORD-00095,CUST-0102,2026-01-11,P015,Phone Stand,Accessories,3,799,2669.38,Completed
+ORD-00096,CUST-0169,2025-12-24,P011,Coffee Maker,Home & Kitchen,1,6499,8281.99,Completed
+ORD-00097,CUST-0102,2026-05-30,P009,Running Shoes,Fashion,1,3999,4199.9,Completed
+ORD-00098,CUST-0079,2026-05-14,P012,Water Bottle,Home & Kitchen,1,999,997.53,Shipped
+ORD-00099,CUST-0090,2025-11-19,P015,Phone Stand,Accessories,1,799,1033.45,Completed
+ORD-00100,CUST-0132,2026-07-22,P010,Hoodie,Fashion,1,2299,2124.89,Completed
+ORD-00101,CUST-0077,2025-12-10,P011,Coffee Maker,Home & Kitchen,2,6499,17053.51,Completed
+ORD-00102,CUST-0113,2026-07-12,P011,Coffee Maker,Home & Kitchen,1,6499,7572.62,Completed
+ORD-00103,CUST-0068,2025-10-03,P009,Running Shoes,Fashion,1,3999,5165.19,Completed
+ORD-00104,CUST-0045,2026-07-10,P002,Smart Watch,Electronics,2,5499,11033.36,Completed
+ORD-00105,CUST-0118,2026-07-06,P006,Office Chair,Home & Office,3,8999,28259.59,Completed
+ORD-00106,CUST-0056,2026-07-04,P015,Phone Stand,Accessories,1,799,1069.48,Completed
+ORD-00107,CUST-0151,2026-05-24,P014,Webcam,Electronics,1,2999,3084.87,Returned
+ORD-00108,CUST-0093,2026-03-16,P005,Bluetooth Speaker,Electronics,1,3299,2796.83,Completed
+ORD-00109,CUST-0174,2026-06-07,P006,Office Chair,Home & Office,1,8999,9700.28,Completed
+ORD-00110,CUST-0079,2026-01-07,P011,Coffee Maker,Home & Kitchen,1,6499,5783.93,Completed
+ORD-00111,CUST-0087,2026-07-04,P009,Running Shoes,Fashion,1,3999,4070.57,Completed
+ORD-00112,CUST-0051,2026-04-15,P015,Phone Stand,Accessories,1,799,755.72,Completed
+ORD-00113,CUST-0040,2026-03-12,P014,Webcam,Electronics,1,2999,3084.93,Completed
+ORD-00114,CUST-0092,2026-03-28,P013,Power Bank,Electronics,2,1899,3454.43,Completed
+ORD-00115,CUST-0112,2026-04-20,P010,Hoodie,Fashion,1,2299,1949.46,Completed
+ORD-00116,CUST-0032,2025-10-14,P011,Coffee Maker,Home & Kitchen,1,6499,5815.01,Processing
+ORD-00117,CUST-0079,2025-11-19,P009,Running Shoes,Fashion,1,3999,4266.03,Returned
+ORD-00118,CUST-0166,2025-12-26,P007,Desk Lamp,Home & Office,1,1599,2283.46,Completed
+ORD-00119,CUST-0013,2025-11-10,P008,USB-C Hub,Accessories,1,2199,2655.71,Completed
+ORD-00120,CUST-0083,2026-03-05,P010,Hoodie,Fashion,1,2299,2360.01,Completed
+ORD-00121,CUST-0155,2026-05-25,P009,Running Shoes,Fashion,2,3999,7804.68,Completed
+ORD-00122,CUST-0063,2026-05-20,P002,Smart Watch,Electronics,1,5499,5968.36,Completed
+ORD-00123,CUST-0036,2026-03-16,P013,Power Bank,Electronics,1,1899,1725.94,Shipped
+ORD-00124,CUST-0151,2026-07-30,P003,Laptop Backpack,Accessories,1,1799,1857.68,Completed
+ORD-00125,CUST-0065,2026-04-19,P013,Power Bank,Electronics,1,1899,2125.6,Completed
+ORD-00126,CUST-0080,2025-10-29,P013,Power Bank,Electronics,1,1899,2075.61,Completed
+ORD-00127,CUST-0044,2026-06-28,P003,Laptop Backpack,Accessories,1,1799,2223.53,Completed
+ORD-00128,CUST-0098,2026-04-22,P012,Water Bottle,Home & Kitchen,1,999,1037.81,Returned
+ORD-00129,CUST-0168,2026-05-13,P013,Power Bank,Electronics,2,1899,3575.14,Completed
+ORD-00130,CUST-0089,2026-04-19,P007,Desk Lamp,Home & Office,1,1599,1434.45,Completed
+ORD-00131,CUST-0103,2026-04-14,P012,Water Bottle,Home & Kitchen,2,999,1687.53,Completed
+ORD-00132,CUST-0114,2025-11-02,P015,Phone Stand,Accessories,1,799,923.66,Completed
+ORD-00133,CUST-0063,2026-04-16,P012,Water Bottle,Home & Kitchen,2,999,1801.13,Completed
+ORD-00134,CUST-0166,2026-07-09,P014,Webcam,Electronics,1,2999,2606.8,Completed
+ORD-00135,CUST-0026,2026-01-16,P001,Wireless Earbuds,Electronics,1,2499,2733.68,Completed
+ORD-00136,CUST-0152,2026-05-02,P004,Mechanical Keyboard,Electronics,1,4299,3897.62,Completed
+ORD-00137,CUST-0001,2025-10-11,P012,Water Bottle,Home & Kitchen,1,999,1110.49,Completed
+ORD-00138,CUST-0079,2026-02-01,P008,USB-C Hub,Accessories,1,2199,2275.65,Completed
+ORD-00139,CUST-0156,2026-03-04,P002,Smart Watch,Electronics,2,5499,9121.57,Completed
+ORD-00140,CUST-0073,2026-09-13,P007,Desk Lamp,Home & Office,2,1599,4245.39,Completed
+ORD-00141,CUST-0053,2025-12-15,P005,Bluetooth Speaker,Electronics,3,3299,10677.58,Shipped
+ORD-00142,CUST-0016,2026-01-06,P003,Laptop Backpack,Accessories,2,1799,3760.51,Shipped
+ORD-00143,CUST-0116,2026-02-22,P008,USB-C Hub,Accessories,2,2199,4427.98,Completed
+ORD-00144,CUST-0029,2026-09-17,P015,Phone Stand,Accessories,1,799,924.26,Completed
+ORD-00145,CUST-0132,2026-07-30,P010,Hoodie,Fashion,1,2299,2512.24,Completed
+ORD-00146,CUST-0150,2025-10-13,P012,Water Bottle,Home & Kitchen,1,999,961.88,Completed
+ORD-00147,CUST-0165,2025-12-22,P007,Desk Lamp,Home & Office,2,1599,3689.56,Completed
+ORD-00148,CUST-0013,2026-07-18,P015,Phone Stand,Accessories,1,799,797.86,Completed
+ORD-00149,CUST-0017,2025-10-21,P008,USB-C Hub,Accessories,1,2199,1939.64,Completed
+ORD-00150,CUST-0171,2026-07-30,P001,Wireless Earbuds,Electronics,1,2499,2453.43,Completed
+ORD-00151,CUST-0040,2026-01-08,P012,Water Bottle,Home & Kitchen,1,999,704.5,Completed
+ORD-00152,CUST-0041,2026-08-21,P012,Water Bottle,Home & Kitchen,1,999,1201.89,Completed
+ORD-00153,CUST-0160,2026-01-12,P006,Office Chair,Home & Office,1,8999,7737.47,Completed
+ORD-00154,CUST-0012,2026-03-03,P010,Hoodie,Fashion,2,2299,3767.19,Completed
+ORD-00155,CUST-0037,2026-05-23,P003,Laptop Backpack,Accessories,3,1799,6015.19,Completed
+ORD-00156,CUST-0069,2025-11-14,P002,Smart Watch,Electronics,1,5499,7558.34,Completed
+ORD-00157,CUST-0179,2026-04-16,P007,Desk Lamp,Home & Office,1,1599,1636.01,Completed
+ORD-00158,CUST-0013,2026-03-28,P003,Laptop Backpack,Accessories,1,1799,1993.59,Shipped
+ORD-00159,CUST-0144,2026-07-05,P010,Hoodie,Fashion,1,2299,2192.0,Completed
+ORD-00160,CUST-0021,2026-09-18,P005,Bluetooth Speaker,Electronics,1,3299,4290.54,Completed
+ORD-00161,CUST-0103,2026-05-24,P005,Bluetooth Speaker,Electronics,1,3299,3224.3,Completed
+ORD-00162,CUST-0180,2026-02-22,P004,Mechanical Keyboard,Electronics,2,4299,9560.51,Completed
+ORD-00163,CUST-0080,2026-02-21,P009,Running Shoes,Fashion,1,3999,3466.23,Completed
+ORD-00164,CUST-0022,2026-02-25,P002,Smart Watch,Electronics,1,5499,4121.78,Completed
+ORD-00165,CUST-0093,2026-07-16,P009,Running Shoes,Fashion,1,3999,3843.47,Completed
+ORD-00166,CUST-0128,2026-01-22,P001,Wireless Earbuds,Electronics,1,2499,1817.52,Completed
+ORD-00167,CUST-0103,2025-11-29,P005,Bluetooth Speaker,Electronics,2,3299,10081.78,Completed
+ORD-00168,CUST-0065,2026-01-27,P015,Phone Stand,Accessories,1,799,715.85,Completed
+ORD-00169,CUST-0041,2025-10-09,P002,Smart Watch,Electronics,1,5499,5795.5,Completed
+ORD-00170,CUST-0041,2025-11-07,P005,Bluetooth Speaker,Electronics,4,3299,14764.85,Completed
+ORD-00171,CUST-0080,2025-11-01,P010,Hoodie,Fashion,1,2299,2975.51,Completed
+ORD-00172,CUST-0077,2026-07-01,P005,Bluetooth Speaker,Electronics,1,3299,2964.53,Completed
+ORD-00173,CUST-0023,2026-06-13,P003,Laptop Backpack,Accessories,1,1799,2466.5,Completed
+ORD-00174,CUST-0167,2026-06-04,P009,Running Shoes,Fashion,2,3999,9554.34,Completed
+ORD-00175,CUST-0004,2026-03-13,P007,Desk Lamp,Home & Office,2,1599,3187.43,Processing
+ORD-00176,CUST-0162,2026-06-11,P004,Mechanical Keyboard,Electronics,2,4299,9993.72,Completed
+ORD-00177,CUST-0119,2025-11-27,P012,Water Bottle,Home & Kitchen,1,999,1182.49,Completed
+ORD-00178,CUST-0098,2026-08-15,P010,Hoodie,Fashion,2,2299,5621.5,Completed
+ORD-00179,CUST-0110,2026-03-27,P011,Coffee Maker,Home & Kitchen,1,6499,6942.94,Completed
+ORD-00180,CUST-0103,2026-08-29,P014,Webcam,Electronics,3,2999,13571.12,Cancelled
+ORD-00181,CUST-0037,2025-11-23,P011,Coffee Maker,Home & Kitchen,3,6499,20862.75,Completed
+ORD-00182,CUST-0169,2026-03-26,P010,Hoodie,Fashion,1,2299,2528.55,Completed
+ORD-00183,CUST-0076,2026-06-04,P008,USB-C Hub,Accessories,1,2199,2707.49,Completed
+ORD-00184,CUST-0068,2026-03-25,P004,Mechanical Keyboard,Electronics,3,4299,11030.32,Shipped
+ORD-00185,CUST-0084,2026-03-07,P012,Water Bottle,Home & Kitchen,1,999,888.26,Completed
+ORD-00186,CUST-0082,2025-11-28,P002,Smart Watch,Electronics,1,5499,6966.39,Completed
+ORD-00187,CUST-0122,2026-02-12,P001,Wireless Earbuds,Electronics,1,2499,2006.24,Cancelled
+ORD-00188,CUST-0064,2025-12-24,P014,Webcam,Electronics,1,2999,4091.72,Completed
+ORD-00189,CUST-0089,2026-01-15,P004,Mechanical Keyboard,Electronics,1,4299,3620.5,Completed
+ORD-00190,CUST-0060,2026-05-31,P010,Hoodie,Fashion,1,2299,2751.87,Completed
+ORD-00191,CUST-0020,2026-05-12,P013,Power Bank,Electronics,1,1899,2058.37,Completed
+ORD-00192,CUST-0018,2026-05-03,P012,Water Bottle,Home & Kitchen,1,999,1156.42,Completed
+ORD-00193,CUST-0170,2026-02-06,P005,Bluetooth Speaker,Electronics,4,3299,12938.28,Completed
+ORD-00194,CUST-0017,2026-09-05,P015,Phone Stand,Accessories,1,799,997.79,Completed
+ORD-00195,CUST-0003,2025-11-01,P001,Wireless Earbuds,Electronics,1,2499,2627.23,Completed
+ORD-00196,CUST-0002,2026-01-30,P014,Webcam,Electronics,4,2999,12321.32,Shipped
+ORD-00197,CUST-0091,2025-11-11,P007,Desk Lamp,Home & Office,1,1599,1892.35,Completed
+ORD-00198,CUST-0073,2026-01-28,P006,Office Chair,Home & Office,1,8999,9085.88,Completed
+ORD-00199,CUST-0037,2026-09-06,P005,Bluetooth Speaker,Electronics,1,3299,4949.36,Completed
+ORD-00200,CUST-0078,2026-02-07,P006,Office Chair,Home & Office,1,8999,9156.11,Completed
+ORD-00201,CUST-0008,2026-08-18,P014,Webcam,Electronics,1,2999,3291.45,Returned
+ORD-00202,CUST-0021,2026-03-25,P008,USB-C Hub,Accessories,1,2199,1783.28,Processing
+ORD-00203,CUST-0096,2026-06-05,P015,Phone Stand,Accessories,1,799,858.1,Completed
+ORD-00204,CUST-0076,2026-03-11,P006,Office Chair,Home & Office,1,8999,8133.03,Completed
+ORD-00205,CUST-0062,2026-01-03,P006,Office Chair,Home & Office,1,8999,8675.07,Completed
+ORD-00206,CUST-0087,2026-06-28,P014,Webcam,Electronics,2,2999,6101.32,Processing
+ORD-00207,CUST-0079,2026-01-02,P007,Desk Lamp,Home & Office,1,1599,1311.45,Completed
+ORD-00208,CUST-0094,2026-07-03,P013,Power Bank,Electronics,1,1899,1821.14,Completed
+ORD-00209,CUST-0018,2026-01-01,P013,Power Bank,Electronics,2,1899,4107.02,Completed
+ORD-00210,CUST-0010,2026-06-11,P007,Desk Lamp,Home & Office,1,1599,1796.33,Completed
+ORD-00211,CUST-0047,2026-07-07,P015,Phone Stand,Accessories,4,799,3172.54,Completed
+ORD-00212,CUST-0101,2026-03-09,P003,Laptop Backpack,Accessories,1,1799,1885.26,Completed
+ORD-00213,CUST-0148,2026-06-18,P004,Mechanical Keyboard,Electronics,1,4299,3814.57,Completed
+ORD-00214,CUST-0069,2026-01-05,P002,Smart Watch,Electronics,2,5499,9504.68,Completed
+ORD-00215,CUST-0169,2025-10-29,P008,USB-C Hub,Accessories,1,2199,1917.17,Shipped
+ORD-00216,CUST-0166,2025-11-04,P002,Smart Watch,Electronics,3,5499,14880.66,Completed
+ORD-00217,CUST-0021,2026-03-08,P005,Bluetooth Speaker,Electronics,2,3299,7753.82,Completed
+ORD-00218,CUST-0019,2026-08-16,P006,Office Chair,Home & Office,1,8999,9911.06,Shipped
+ORD-00219,CUST-0118,2025-11-15,P015,Phone Stand,Accessories,1,799,945.45,Completed
+ORD-00220,CUST-0034,2026-03-11,P003,Laptop Backpack,Accessories,1,1799,1678.54,Completed
+ORD-00221,CUST-0048,2026-06-07,P005,Bluetooth Speaker,Electronics,4,3299,16362.97,Completed
+ORD-00222,CUST-0179,2025-12-11,P011,Coffee Maker,Home & Kitchen,1,6499,8780.22,Completed
+ORD-00223,CUST-0178,2026-06-13,P002,Smart Watch,Electronics,2,5499,13434.47,Completed
+ORD-00224,CUST-0009,2026-01-17,P001,Wireless Earbuds,Electronics,1,2499,2465.98,Completed
+ORD-00225,CUST-0101,2026-07-14,P011,Coffee Maker,Home & Kitchen,1,6499,7459.44,Completed
+ORD-00226,CUST-0035,2026-04-24,P015,Phone Stand,Accessories,1,799,811.46,Completed
+ORD-00227,CUST-0128,2026-04-12,P014,Webcam,Electronics,2,2999,5933.25,Completed
+ORD-00228,CUST-0017,2025-12-02,P005,Bluetooth Speaker,Electronics,1,3299,4163.58,Returned
+ORD-00229,CUST-0094,2026-03-13,P001,Wireless Earbuds,Electronics,1,2499,2363.7,Completed
+ORD-00230,CUST-0152,2026-07-31,P001,Wireless Earbuds,Electronics,1,2499,2672.49,Returned
+ORD-00231,CUST-0013,2025-10-07,P002,Smart Watch,Electronics,1,5499,5186.9,Completed
+ORD-00232,CUST-0018,2026-06-26,P011,Coffee Maker,Home & Kitchen,1,6499,6343.46,Completed
+ORD-00233,CUST-0157,2026-03-24,P015,Phone Stand,Accessories,2,799,1737.04,Completed
+ORD-00234,CUST-0160,2026-06-12,P001,Wireless Earbuds,Electronics,1,2499,2672.35,Completed
+ORD-00235,CUST-0154,2026-05-23,P014,Webcam,Electronics,1,2999,2899.15,Completed
+ORD-00236,CUST-0166,2026-03-02,P011,Coffee Maker,Home & Kitchen,1,6499,5895.53,Completed
+ORD-00237,CUST-0048,2026-01-18,P012,Water Bottle,Home & Kitchen,1,999,1157.86,Completed
+ORD-00238,CUST-0175,2026-05-11,P013,Power Bank,Electronics,1,1899,1736.66,Completed
+ORD-00239,CUST-0043,2025-11-19,P006,Office Chair,Home & Office,1,8999,10347.17,Completed
+ORD-00240,CUST-0036,2026-04-25,P015,Phone Stand,Accessories,1,799,993.54,Completed
+ORD-00241,CUST-0047,2025-11-03,P008,USB-C Hub,Accessories,2,2199,4996.27,Completed
+ORD-00242,CUST-0098,2026-05-19,P011,Coffee Maker,Home & Kitchen,1,6499,6297.49,Completed
+ORD-00243,CUST-0176,2026-05-11,P003,Laptop Backpack,Accessories,3,1799,5135.95,Completed
+ORD-00244,CUST-0168,2025-10-30,P011,Coffee Maker,Home & Kitchen,1,6499,6975.48,Completed
+ORD-00245,CUST-0013,2026-06-26,P008,USB-C Hub,Accessories,1,2199,2172.63,Completed
+ORD-00246,CUST-0069,2026-02-25,P015,Phone Stand,Accessories,1,799,671.79,Completed
+ORD-00247,CUST-0029,2026-07-06,P013,Power Bank,Electronics,1,1899,1794.93,Completed
+ORD-00248,CUST-0171,2025-10-15,P009,Running Shoes,Fashion,1,3999,4434.27,Shipped
+ORD-00249,CUST-0110,2025-12-03,P006,Office Chair,Home & Office,1,8999,11405.17,Completed
+ORD-00250,CUST-0131,2026-03-24,P007,Desk Lamp,Home & Office,2,1599,2787.18,Completed

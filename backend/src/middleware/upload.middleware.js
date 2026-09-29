@@ -1,39 +1,23 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import {
-  fileURLToPath,
-} from "url";
 
 /* =========================================================
    FILE / DIRECTORY CONFIGURATION
 ========================================================= */
 
-const __filename =
-  fileURLToPath(
-    import.meta.url
-  );
-
-const __dirname =
-  path.dirname(
-    __filename
-  );
-
 /*
- * Current file:
- *
- * backend/src/middleware/upload.middleware.js
- *
  * Upload directory:
  *
- * backend/uploads/
+ * /tmp/fin-e-scale-uploads
+ *
+ * Note: /tmp is ephemeral on most hosts (Render, Railway,
+ * Vercel, Lambda). Files are lost on restart or redeploy,
+ * so process each CSV during the request or soon after.
  */
 
 const uploadDirectory =
-  path.resolve(
-    __dirname,
-    "../../uploads"
-  );
+  "/tmp/fin-e-scale-uploads";
 
 /* =========================================================
    UPLOAD LIMITS

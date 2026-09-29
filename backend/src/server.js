@@ -333,7 +333,8 @@ app.use((req, res) => {
 ========================================================= */
 
 app.use((error, req, res, next) => {
-  console.error("Unhandled server error:", error);
+  console.error("UNHANDLED SERVER ERROR:", error);
+  console.error("STACK:", error?.stack);
 
   /* =====================================================
      CORS ERROR
